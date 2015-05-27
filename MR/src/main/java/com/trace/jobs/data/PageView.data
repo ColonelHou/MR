@@ -1,0 +1,29 @@
++--------------------------------RMDB---------------------------------------------
++ 关系型DB创建并插入数据:
++ CREATE TABLE t_table (city varchar(80), temp_lo int, temp_hi int);
++ SELECT * FROM t_table;
++ --insert语句一
++ INSERT INTO t_table (city,temp_lo,temp_hi) VALUES ('北京', 10, 10);
++ INSERT INTO t_table (city,temp_lo,temp_hi) VALUES ('北京', 30, 50);
++ INSERT INTO t_table (city,temp_lo,temp_hi) VALUES ('上海', 20, 50);
++ INSERT INTO t_table (city,temp_lo,temp_hi) VALUES ('上海', 10, 50);
++ INSERT INTO t_table (city,temp_lo,temp_hi) VALUES ('上海', 5, 100);
++ INSERT INTO t_table (city,temp_lo,temp_hi) VALUES ('上海', 40, 300);
++ SELECT * FROM t_table;
++ SELECT city FROM t_table GROUP BY city;
++ SELECT city, count(city)FROM t_table GROUP BY city;
++ SELECT city, count(city), avg(temp_lo) FROM t_table GROUP BY city;
++ SELECT city, count(city), avg(temp_lo), SUM(temp_lo) FROM t_table GROUP BY city;
++----------------------------------Hive-------------------------------------------
++ 创建hive表
++ CREATE TABLE IF NOT EXISTS t_table(city STRING, temp_lo STRING, temp_hi STRING)
++ ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS textfile;
++ 北京,10,10
++ 北京,30,50
++ 上海,20,50
++ 上海,10,50
++ 上海,5,100
++ 上海,40,300
++ load data local inpath '/data/test.data' into table t_table;
++ SELECT city, count(city), avg(temp_lo), SUM(temp_lo) FROM t_table GROUP BY city;
++---------------------------------------------------------------------------------
